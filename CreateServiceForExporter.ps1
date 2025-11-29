@@ -1,0 +1,1 @@
+New-Service -name 'SqlExporterSvc' -BinaryPathName '"C:\Program Files\sql_exporter\sql_exporter.exe" --config.file "C:\Program Files\sql_exporter\sql_exporter.yml"' -StartupType 'Automatic' -DisplayName 'Prometheus SQL Exporter'
