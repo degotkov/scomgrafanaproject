@@ -1,0 +1,199 @@
+# A collector defining standard metrics for Microsoft SQL Server.
+#
+# It is required that the SQL Server user has the following permissions:
+#
+#   GRANT VIEW ANY DEFINITION TO
+#   GRANT VIEW SERVER STATE TO
+#
+collector_name: scom_database
+
+# Similar to global.min_interval, but applies to the queries defined by this collector only.
+#min_interval: 0s
+
+metrics:
+  - metric_name: windows_cpu_processor_performance_ratio
+    type: gauge
+    help: '% Processor Time'
+    key_labels:
+      - Path
+      - Domain
+      - Object
+      - Counter
+    values:
+      - Value
+    query: |
+      SELECT [Path],[Domain],[Object],[Counter],[Value]
+      FROM [OperationsManagerDW].[dbo].[vGrafanaCommonDataset]
+      where Counter = '% Processor Time'
+      
+  - metric_name: windows_system_processor_queue_length
+    type: gauge
+    help: 'Processor Queue Length'
+    key_labels:
+      - Path
+      - Domain
+      - Object
+      - Counter
+    values:
+      - Value
+    query: |
+      SELECT [Path],[Domain],[Object],[Counter],[Value]
+      FROM [OperationsManagerDW].[dbo].[vGrafanaCommonDataset]
+      where Counter = 'Processor Queue Length'
+
+  - metric_name: windows_memory_physical_used_ratio
+    type: gauge
+    help: '% Physical Memory Used'
+    key_labels:
+      - Path
+      - Domain
+      - Object
+      - Counter
+    values:
+      - Value
+    query: |
+      SELECT [Path],[Domain],[Object],[Counter],[Value]
+      FROM [OperationsManagerDW].[dbo].[vGrafanaCommonDataset]
+      where Counter = 'PercentMemoryUsed'
+
+  - metric_name: windows_memory_committed_used_ratio
+    type: gauge
+    help: '% Committed Memory Used'
+    key_labels:
+      - Path
+      - Domain
+      - Object
+      - Counter
+    values:
+      - Value
+    query: |
+      SELECT [Path],[Domain],[Object],[Counter],[Value]
+      FROM [OperationsManagerDW].[dbo].[vGrafanaCommonDataset]
+      where Counter = '% Committed Bytes In Use'
+      
+  - metric_name: windows_logical_disk_free_ratio
+    type: gauge
+    help: 'LogicalDisk % Free Space'
+    key_labels:
+      - Path
+      - Domain
+      - Object
+      - Counter
+      - Instance
+    values:
+      - Value
+    query: |
+      SELECT [Path],[Domain],[Object],[Counter],[Value]
+      FROM [OperationsManagerDW].[dbo].[vGrafanaCommonDataset]
+      where Counter = '% Free Space' and Object = 'LogicalDisk'
+   
+  - metric_name: windows_logical_disk_requests_queued
+    type: gauge
+    help: 'LogicalDisk Current Disk Queue Length'
+    key_labels:
+      - Path
+      - Domain
+      - Object
+      - Counter
+      - Instance
+    values:
+      - Value
+    query: |
+      SELECT [Path],[Domain],[Object],[Counter],[Value]
+      FROM [OperationsManagerDW].[dbo].[vGrafanaCommonDataset]
+      where Counter = 'Current Disk Queue Length' and Object = 'LogicalDisk'
+   
+  - metric_name: windows_logical_disk_free_mbytes
+    type: gauge
+    help: 'LogicalDisk Free Megabytes'
+    key_labels:
+      - Path
+      - Domain
+      - Object
+      - Counter
+      - Instance
+    values:
+      - Value
+    query: |
+      SELECT [Path],[Domain],[Object],[Counter],[Value]
+      FROM [OperationsManagerDW].[dbo].[vGrafanaCommonDataset]
+      where Counter = 'Free Megabytes' and Object = 'LogicalDisk'
+      
+  - metric_name: windows_net_bytes_received_per_second
+    type: gauge
+    help: 'Network Adapter Bytes Received/sec'
+    key_labels:
+      - Path
+      - Domain
+      - Object
+      - Counter
+      - Instance
+    values:
+      - Value
+    query: |
+      SELECT [Path],[Domain],[Object],[Counter],[Value]
+      FROM [OperationsManagerDW].[dbo].[vGrafanaCommonDataset]
+      where Counter = 'Bytes Received/sec' and Object = 'Network Adapter'
+      
+  - metric_name: windows_net_bytes_sent_per_second
+    type: gauge
+    help: 'Network Adapter Bytes Sent/sec'
+    key_labels:
+      - Path
+      - Domain
+      - Object
+      - Counter
+      - Instance
+    values:
+      - Value
+    query: |
+      SELECT [Path],[Domain],[Object],[Counter],[Value]
+      FROM [OperationsManagerDW].[dbo].[vGrafanaCommonDataset]
+      where Counter = 'Bytes Sent/sec' and Object = 'Network Adapter'
+      
+  - metric_name: windows_net_bytes_total_per_second
+    type: gauge
+    help: 'Network Adapter Bytes Total/sec'
+    key_labels:
+      - Path
+      - Domain
+      - Object
+      - Counter
+      - Instance
+    values:
+      - Value
+    query: |
+      SELECT [Path],[Domain],[Object],[Counter],[Value]
+      FROM [OperationsManagerDW].[dbo].[vGrafanaCommonDataset]
+      where Counter = 'Bytes Total/sec' and Object = 'Network Adapter'
+      
+  - metric_name: windows_net_current_bandwidth_ratio
+    type: gauge
+    help: 'Network Adapter % Bandwidth Used'
+    key_labels:
+      - Path
+      - Domain
+      - Object
+      - Counter
+      - Instance
+    values:
+      - Value
+    query: |
+      SELECT [Path],[Domain],[Object],[Counter],[Value]
+      FROM [OperationsManagerDW].[dbo].[vGrafanaCommonDataset]
+      where Counter = 'PercentBandwidthUsedTotal' and Object = 'Network Adapter'
+      
+  - metric_name: windows_system_uptime_total
+    type: counter
+    help: 'System Uptime (seconds)'
+    key_labels:
+      - Path
+      - Domain
+      - Object
+      - Counter
+    values:
+      - Value
+    query: |
+      SELECT [Path],[Domain],[Object],[Counter],[Value]
+      FROM [OperationsManagerDW].[dbo].[vGrafanaCommonDataset]
+      where Counter = 'Uptime' and Object = 'System'
