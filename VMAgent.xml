@@ -1,0 +1,31 @@
+<service>
+  <id>VMAgent</id>
+  <name>VMAgent</name>
+  <description>This service is a service created from a sample configuration</description>
+  <executable>%BASE%\vmagent-windows-amd64-prod.exe</executable>
+  <onfailure action="restart" delay="10 sec"/>
+  <onfailure action="restart" delay="20 sec"/>
+  <resetfailure>1 hour</resetfailure>
+  <arguments>-envflag.enable</arguments>
+  <priority>Normal</priority>
+  <stoptimeout>15 sec</stoptimeout>
+  <stopparentprocessfirst>true</stopparentprocessfirst>
+  <startmode>Automatic</startmode>
+  <waithint>15 sec</waithint>
+  <sleeptime>1 sec</sleeptime>
+  <logpath>%BASE%\logs</logpath>
+  <log mode="roll">
+    <sizeThreshold>10240</sizeThreshold>
+    <keepFiles>8</keepFiles>
+  </log>
+  <env name="loggerFormat" value="json" />
+  <env name="loggerOutput" value="stderr" />
+  <env name="remoteWrite_oauth2_tokenUrl" value="https://<your_victoria_metrics_host>/oauth/token" />
+  <env name="remoteWrite_oauth2_clientID" value="<your_oauth2_clientID>" />
+  <env name="remoteWrite_oauth2_clientSecret" value="your_oauth2_clientSecret" />
+  <env name="remoteWrite_oauth2_scopes" value="metrics.write" />
+  <env name="remoteWrite_url" value="https://<your_victoria_metrics_host>/insert/prometheus" />
+  <env name="remoteWrite_maxDiskUsagePerURL" value="52428800" />
+  <env name="promscrape_suppressScrapeErrors" value="false" />
+  <env name="promscrape_config" value="C:\Program Files\sql_exporter\promscrape.yml" />
+ </service>
